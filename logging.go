@@ -22,6 +22,7 @@ import (
 	"io"
 	stdlog "log"
 	"os"
+	"path/filepath"
 	"runtime"
 	"runtime/debug"
 	"strings"
@@ -53,6 +54,15 @@ var (
 	logFile *os.File
 	LogPath string
 )
+
+func init() {
+	dir, err := os.Getwd()
+	if nil != err {
+		stdlog.Printf("get current dir failed: %s", err)
+		dir = "./"
+	}
+	LogPath = filepath.Join(dir, "logging.log")
+}
 
 func SetLogPath(path string) {
 	LogPath = path
