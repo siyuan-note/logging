@@ -122,9 +122,9 @@ func LogWarnf(format string, v ...interface{}) {
 	logger.Warnf(format, v...)
 }
 
-func LogFatalf(format string, v ...interface{}) {
+func LogFatalf(exitCode int, format string, v ...interface{}) {
 	openLogger()
-	logger.Fatalf(format, v...)
+	logger.Fatalf(exitCode, format, v...)
 }
 
 func openLogger() {
@@ -353,7 +353,7 @@ func (l *Logger) Errorf(format string, v ...interface{}) {
 }
 
 // Fatalf prints fatal level message with format and exit process with code 1.
-func (l *Logger) Fatalf(format string, v ...interface{}) {
+func (l *Logger) Fatalf(exitCode int, format string, v ...interface{}) {
 	if Fatal < l.level {
 		return
 	}
@@ -363,5 +363,5 @@ func (l *Logger) Fatalf(format string, v ...interface{}) {
 	l.logger.Output(3, msg)
 	sentry.CaptureMessage(msg)
 	closeLogger()
-	os.Exit(ExitCodeFatal)
+	os.Exit(exitCode)
 }
