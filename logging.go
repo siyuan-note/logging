@@ -31,6 +31,18 @@ import (
 	"github.com/getsentry/sentry-go"
 )
 
+const (
+	ExitCodeReadOnlyDatabase      = 20 // 数据库文件被锁
+	ExitCodeUnavailablePort       = 21 // 端口不可用
+	ExitCodeCreateConfDirErr      = 22 // 创建配置目录失败
+	ExitCodeBlockTreeErr          = 23 // 无法读写 blocktree.msgpack 文件
+	ExitCodeWorkspaceLocked       = 24 // 工作空间已被锁定
+	ExitCodeCreateWorkspaceDirErr = 25 // 创建工作空间失败
+	ExitCodeFileSysInconsistent   = 26 // 文件系统不一致
+	ExitCodeOk                    = 0  // 正常退出
+	ExitCodeFatal                 = 1  // 致命错误
+)
+
 func ShortStack() string {
 	output := string(debug.Stack())
 	lines := strings.Split(output, "\n")
@@ -351,5 +363,5 @@ func (l *Logger) Fatalf(format string, v ...interface{}) {
 	l.logger.Output(3, msg)
 	sentry.CaptureMessage(msg)
 	closeLogger()
-	os.Exit(1)
+	os.Exit(ExitCodeFatal)
 }
