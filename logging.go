@@ -79,22 +79,22 @@ func SetLogPath(path string) {
 }
 
 func LogTracef(format string, v ...interface{}) {
+	defer closeLogger()
+	openLogger()
+
 	if !logger.IsTraceEnabled() {
 		return
 	}
-
-	defer closeLogger()
-	openLogger()
 	logger.Tracef(format, v...)
 }
 
 func LogDebugf(format string, v ...interface{}) {
+	defer closeLogger()
+	openLogger()
+
 	if !logger.IsDebugEnabled() {
 		return
 	}
-
-	defer closeLogger()
-	openLogger()
 	logger.Debugf(format, v...)
 }
 
@@ -111,12 +111,12 @@ func LogErrorf(format string, v ...interface{}) {
 }
 
 func LogWarnf(format string, v ...interface{}) {
+	defer closeLogger()
+	openLogger()
+
 	if !logger.IsWarnEnabled() {
 		return
 	}
-
-	defer closeLogger()
-	openLogger()
 	logger.Warnf(format, v...)
 }
 
