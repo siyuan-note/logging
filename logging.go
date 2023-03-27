@@ -134,10 +134,17 @@ func openLogger() {
 		}
 	}
 
+	dir, _ := filepath.Split(LogPath)
+	if !gulu.File.IsExist(dir) {
+		if err := os.MkdirAll(dir, 0755); nil != err {
+			stdlog.Printf("create log dir [%s] failed: %s", dir, err)
+		}
+	}
+
 	var err error
 	logFile, err = os.OpenFile(LogPath, os.O_RDWR|os.O_CREATE|os.O_APPEND, 0644)
 	if nil != err {
-		stdlog.Fatalf("create log file [%s] failed: %s", LogPath, err)
+		stdlog.Printf("create log file [%s] failed: %s", LogPath, err)
 	}
 	logger = NewLogger(io.MultiWriter(os.Stdout, logFile))
 }
