@@ -127,8 +127,8 @@ func LogFatalf(exitCode int, format string, v ...interface{}) {
 
 func openLogger() {
 	if gulu.File.IsExist(LogPath) {
-		if size := gulu.File.GetFileSize(LogPath); 1024*1024*2 <= size {
-			// 日志文件大于 2M 的话删了重建
+		if size := gulu.File.GetFileSize(LogPath); 1024*1024*32 <= size {
+			// 日志文件大于 32M 的话删了重建
 			os.Remove(LogPath)
 		}
 	}
