@@ -26,6 +26,7 @@ import (
 	"runtime"
 	"runtime/debug"
 	"strings"
+	"sync"
 
 	"github.com/88250/gulu"
 	"github.com/getsentry/sentry-go"
@@ -125,7 +126,11 @@ func LogFatalf(exitCode int, format string, v ...interface{}) {
 	logger.Fatalf(exitCode, format, v...)
 }
 
+var lock = sync.Mutex{}
+
 func openLogger() {
+	lock.Lock()
+
 	if gulu.File.IsExist(LogPath) {
 		if size := gulu.File.GetFileSize(LogPath); 1024*1024*32 <= size {
 			// 日志文件大于 32M 的话删了重建
@@ -150,6 +155,7 @@ func openLogger() {
 
 func closeLogger() {
 	logFile.Close()
+	lock.Unlock()
 }
 
 func Recover() {
