@@ -370,9 +370,29 @@ func (l *Logger) Fatalf(exitCode int, format string, v ...interface{}) {
 	}
 
 	l.logger.SetPrefix("F ")
+	format += "\n%s"
+	v = append(v, shortStack())
 	msg := fmt.Sprintf(format, v...)
 	l.logger.Output(3, msg)
 	sentry.CaptureMessage(msg)
 	closeLogger()
 	os.Exit(exitCode)
+}
+
+func shortStack() string {
+	output := string(debug.Stack())
+	lines := strings.Split(output, "\n")
+	if 11 < len(lines) {
+		lines = lines[11:]
+	}
+	buf := bytes.Buffer{}
+	for _, l := range lines {
+		if strings.Contains(l, "gin-gonic") {
+			break
+		}
+		buf.WriteString("    ")
+		buf.WriteString(l)
+		buf.WriteByte('\n')
+	}
+	return buf.String()
 }
