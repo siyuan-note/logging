@@ -29,7 +29,6 @@ import (
 	"sync"
 
 	"github.com/88250/gulu"
-	"github.com/getsentry/sentry-go"
 )
 
 const (
@@ -360,7 +359,6 @@ func (l *Logger) Errorf(format string, v ...interface{}) {
 	l.logger.SetPrefix("E ")
 	msg := fmt.Sprintf(format, v...)
 	l.logger.Output(3, msg)
-	sentry.CaptureMessage(msg)
 }
 
 // Fatalf prints fatal level message with format and exit process with code 1.
@@ -374,7 +372,6 @@ func (l *Logger) Fatalf(exitCode int, format string, v ...interface{}) {
 	v = append(v, shortStack())
 	msg := fmt.Sprintf(format, v...)
 	l.logger.Output(3, msg)
-	sentry.CaptureMessage(msg)
 	closeLogger()
 	os.Exit(exitCode)
 }
