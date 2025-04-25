@@ -1,4 +1,4 @@
 github.com/88250/gulu v1.2.3-0.20241212012748-c4dc08fe45ec h1:YsUSpByWJP+x8C+IT+C3QlFvU7ZQ6+E95SFd9+zy6QU=
 github.com/88250/gulu v1.2.3-0.20241212012748-c4dc08fe45ec/go.mod h1:c8uVw25vW2W4dhJ/j4iYsX5H1hc19spim266jO5x2hU=
-golang.org/x/text v0.21.0 h1:zyQAAkrwaneQ066sspRyJaG9VNi/YJ1NfzcGB3hZ/qo=
-golang.org/x/text v0.21.0/go.mod h1:4IBbMaMmOPCJ8SecivzSH54+73PCFmPWxNTLm+vZkEQ=
+golang.org/x/text v0.24.0 h1:dd5Bzh4yt5KYA8f9CJHCP4FB4D51c2c6JvN37xJJkJ0=
+golang.org/x/text v0.24.0/go.mod h1:L8rBsPeo2pSS+xqN0d5u2ikmjtmoJbDBT1b7nHvFCdU=

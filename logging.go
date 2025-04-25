@@ -88,6 +88,16 @@ func LogTracef(format string, v ...interface{}) {
 	logger.Tracef(format, v...)
 }
 
+func LogTrace(content string) {
+	defer closeLogger()
+	openLogger()
+
+	if !logger.IsTraceEnabled() {
+		return
+	}
+	logger.Tracef(content)
+}
+
 func LogDebugf(format string, v ...interface{}) {
 	defer closeLogger()
 	openLogger()
@@ -98,16 +108,46 @@ func LogDebugf(format string, v ...interface{}) {
 	logger.Debugf(format, v...)
 }
 
+func LogDebug(content string) {
+	defer closeLogger()
+	openLogger()
+
+	if !logger.IsDebugEnabled() {
+		return
+	}
+	logger.Debugf(content)
+}
+
 func LogInfof(format string, v ...interface{}) {
 	defer closeLogger()
 	openLogger()
 	logger.Infof(format, v...)
 }
 
+func LogInfo(content string) {
+	defer closeLogger()
+	openLogger()
+
+	if !logger.IsDebugEnabled() {
+		return
+	}
+	logger.Infof(content)
+}
+
 func LogErrorf(format string, v ...interface{}) {
 	defer closeLogger()
 	openLogger()
 	logger.Errorf(format, v...)
+}
+
+func LogError(content string) {
+	defer closeLogger()
+	openLogger()
+
+	if !logger.IsDebugEnabled() {
+		return
+	}
+	logger.Errorf(content)
 }
 
 func LogWarnf(format string, v ...interface{}) {
@@ -120,9 +160,24 @@ func LogWarnf(format string, v ...interface{}) {
 	logger.Warnf(format, v...)
 }
 
+func LogWarn(content string) {
+	defer closeLogger()
+	openLogger()
+
+	if !logger.IsWarnEnabled() {
+		return
+	}
+	logger.Warnf(content)
+}
+
 func LogFatalf(exitCode int, format string, v ...interface{}) {
 	openLogger()
 	logger.Fatalf(exitCode, format, v...)
+}
+
+func LogFatal(exitCode int, content string) {
+	openLogger()
+	logger.Fatalf(exitCode, content)
 }
 
 var lock = sync.Mutex{}
