@@ -32,14 +32,14 @@ import (
 )
 
 const (
-	ExitCodeReadOnlyDatabase = 20 // 数据库文件被锁
-	ExitCodeUnavailablePort  = 21 // 端口不可用
-	ExitCodeSecurityRisk     = 22 // 存在安全风险
-	ExitCodeWorkspaceLocked  = 24 // 工作空间已被锁定
-	ExitCodeInitWorkspaceErr = 25 // 初始化工作空间失败
-	ExitCodeFileSysErr       = 26 // 文件系统错误
-	ExitCodeOk               = 0  // 正常退出
-	ExitCodeFatal            = 1  // 致命错误
+	ExitCodeUnavailableDatabase = 20 // 不可用的数据库
+	ExitCodeUnavailablePort     = 21 // 端口不可用
+	ExitCodeSecurityRisk        = 22 // 存在安全风险
+	ExitCodeWorkspaceLocked     = 24 // 工作空间已被锁定
+	ExitCodeInitWorkspaceErr    = 25 // 初始化工作空间失败
+	ExitCodeFileSysErr          = 26 // 文件系统错误
+	ExitCodeOk                  = 0  // 正常退出
+	ExitCodeFatal               = 1  // 致命错误
 )
 
 func ShortStack() string {
