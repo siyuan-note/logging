@@ -33,7 +33,7 @@ import (
 
 const (
 	ExitCodeUnavailableDatabase = 20 // 不可用的数据库
-	ExitCodeUnavailablePort     = 21 // 端口不可用
+	ExitCodeUnavailablePort     = 21 // 不可用的端口
 	ExitCodeSecurityRisk        = 22 // 存在安全风险
 	ExitCodeWorkspaceLocked     = 24 // 工作空间已被锁定
 	ExitCodeInitWorkspaceErr    = 25 // 初始化工作空间失败
