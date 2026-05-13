@@ -61,9 +61,10 @@ func ShortStack() string {
 }
 
 var (
-	logger  *Logger
-	logFile *os.File
-	LogPath string
+	logger      *Logger
+	logFile     *os.File
+	LogPath     string
+	logToStdout = true
 )
 
 func init() {
@@ -77,6 +78,10 @@ func init() {
 
 func SetLogPath(path string) {
 	LogPath = path
+}
+
+func SetLogToStdout(enabled bool) {
+	logToStdout = enabled
 }
 
 func LogTracef(format string, v ...interface{}) {
@@ -205,12 +210,24 @@ func openLogger() {
 	if nil != err {
 		stdlog.Printf("create log file [%s] failed: %s", LogPath, err)
 	}
-	logger = NewLogger(io.MultiWriter(os.Stdout, logFile))
+	logger = NewLogger(io.MultiWriter(getWriters(logFile)...))
 }
 
 func closeLogger() {
 	logFile.Close()
 	lock.Unlock()
+}
+
+func getWriters(logFile *os.File) []io.Writer {
+	if logFile == nil {
+		return []io.Writer{os.Stdout}
+	}
+	writers := make([]io.Writer, 0, 2)
+	if logToStdout {
+		writers = append(writers, os.Stdout)
+	}
+	writers = append(writers, logFile)
+	return writers
 }
 
 func Recover() {
